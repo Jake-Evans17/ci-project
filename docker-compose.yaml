@@ -42,6 +42,10 @@ services:
         gateway:
                 image: jakeevans17/gateway
                 build: ./gateway
+                ports:
+                        - target: 80
+                          published: 80
+                          protocol: tcp
                 depends_on:
                         - authentication-client
                         - authentication-service
