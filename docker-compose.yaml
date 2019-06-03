@@ -1,0 +1,71 @@
+version: '3.7'
+services:
+        account-service:
+                image: jakeevans17/account-service
+                build: ./account-service
+                depends_on:
+                        - mongo-service
+                        - secret-service
+        aes-encryption-service:
+                image: jakeevans17/aes-encryption-service
+                build: ./aes-encryption-service
+        authentication-client:
+                image: jakeevans17/authentication-client
+                build: ./authentication-client
+        authentication-service:
+                image: jakeevans17/authentication-service
+                build: ./authentication-service
+                environment:
+                        - ACTIVATION_LINK=http://localhost/authentication/api/activate
+                depends_on:
+                        - session-token-service
+                        - email-service
+                        - account-service
+        dashboard-client:
+                image: jakeevans17/dashboard-client
+                build: ./dashboard-client
+        dashboard-service:
+                image: jakeevans17/dashboard-service
+                build: ./dashboard-service
+                depends_on:
+                        - account-service
+        email-service:
+                image: jakeevans17/email-service
+                build: ./email-service
+                environment:
+                        - GMAIL_USER=ilovedocker123@gmail.com
+                        - GMAIL_PASS=ilovedocker1!
+                        - SERVICE_NAME=email-service
+                depends_on:
+                        - aes-encryption-service
+                        - mongo-service
+        gateway:
+                image: jakeevans17/gateway
+                build: ./gateway
+                depends_on:
+                        - authentication-client
+                        - authentication-service
+        group-service:
+                image: jakeevans17/group-service
+                build: ./group-service
+        mongo:
+                image: mongo
+        mongo-service:
+                image: jakeevans17/mongo-service
+                build: ./mongo-service
+                depends_on:
+                        - mongo
+        role-service:
+                image: jakeevans17/role-service
+                build: ./role-service
+        secret-service:
+                image: jakeevans17/secret-service
+                build: ./secret-service
+                depends_on:
+                        - mongo-service
+        session-token-service:
+                image: jakeevans17/session-token-service
+                build: ./session-token-service
+                depends_on:
+                        - aes-encryption-service
+                        - mongo-service
