@@ -16,7 +16,7 @@ services:
                 image: jakeevans17/authentication-service
                 build: ./authentication-service
                 environment:
-                        - ACTIVATION_LINK=http://localhost/authentication/api/activate
+                        - ACTIVATION_LINK=http://${host_ip}/authentication/api/activate
                 depends_on:
                         - session-token-service
                         - email-service
