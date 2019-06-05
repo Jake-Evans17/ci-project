@@ -7,13 +7,13 @@ services:
                         - mongo-service
                         - secret-service
         aes-encryption-service:
-                image: jakeevans17/aes-encryption-service
+                image: jakeevans17/aes-encryption-service:${BUILD_NUMBER}
                 build: ./aes-encryption-service
         authentication-client:
-                image: jakeevans17/authentication-client
+                image: jakeevans17/authentication-client:${BUILD_NUMBER}
                 build: ./authentication-client
         authentication-service:
-                image: jakeevans17/authentication-service
+                image: jakeevans17/authentication-service:${BUILD_NUMBER}
                 build: ./authentication-service
                 environment:
                         - ACTIVATION_LINK=http://${host_ip}/authentication/api/activate
@@ -22,15 +22,15 @@ services:
                         - email-service
                         - account-service
         dashboard-client:
-                image: jakeevans17/dashboard-client
+                image: jakeevans17/dashboard-client:${BUILD_NUMBER}
                 build: ./dashboard-client
         dashboard-service:
-                image: jakeevans17/dashboard-service
+                image: jakeevans17/dashboard-service:${BUILD_NUMBER}
                 build: ./dashboard-service
                 depends_on:
                         - account-service
         email-service:
-                image: jakeevans17/email-service
+                image: jakeevans17/email-service:${BUILD_NUMBER}
                 build: ./email-service
                 environment:
                         - GMAIL_USER=ilovedocker123@gmail.com
@@ -40,7 +40,7 @@ services:
                         - aes-encryption-service
                         - mongo-service
         gateway:
-                image: jakeevans17/gateway
+                image: jakeevans17/gateway:${BUILD_NUMBER}
                 build: ./gateway
                 ports:
                         - target: 80
@@ -50,25 +50,25 @@ services:
                         - authentication-client
                         - authentication-service
         group-service:
-                image: jakeevans17/group-service
+                image: jakeevans17/group-service:${BUILD_NUMBER}
                 build: ./group-service
         mongo:
                 image: mongo
         mongo-service:
-                image: jakeevans17/mongo-service
+                image: jakeevans17/mongo-service:${BUILD_NUMBER}
                 build: ./mongo-service
                 depends_on:
                         - mongo
         role-service:
-                image: jakeevans17/role-service
+                image: jakeevans17/role-service:${BUILD_NUMBER}
                 build: ./role-service
         secret-service:
-                image: jakeevans17/secret-service
+                image: jakeevans17/secret-service:${BUILD_NUMBER}
                 build: ./secret-service
                 depends_on:
                         - mongo-service
         session-token-service:
-                image: jakeevans17/session-token-service
+                image: jakeevans17/session-token-service:${BUILD_NUMBER}
                 build: ./session-token-service
                 depends_on:
                         - aes-encryption-service
