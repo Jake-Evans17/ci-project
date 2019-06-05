@@ -1,7 +1,8 @@
 <template>
     <div>
     <b-form class="mx-auto" @submit="submit">
-        <h1>Login</h1>
+        <h1>Welcome</h1>
+        <h2>Login</h2>
         <b-form-input 
             v-model="form.email"
             type="email"
